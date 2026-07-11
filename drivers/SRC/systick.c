@@ -26,7 +26,7 @@ void SysTick_Disable(void)
 void SysTick_SetReloadValue(uint32_t reload_value)
 {
 
-	 SYSTICK->LOAD = (reload_value & 0x00FFFFFFU);  /// since LOAD Is 24 bit lets just mask it
+	SYSTICK->LOAD = reload_value & 0x00FFFFFFU;  /// since LOAD Is 24 bit lets just mask it
 }
 
 void SysTick_ClearCurrentValue(void)
