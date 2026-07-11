@@ -1,0 +1,18 @@
+# Build output
+Debug/
+Release/
+
+# Eclipse / STM32CubeIDE settings
+.settings/
+
+# Object files
+*.o
+*.d
+*.su
+
+# Executables and maps
+*.elf
+*.map
+*.list
+*.hex
+*.bin
