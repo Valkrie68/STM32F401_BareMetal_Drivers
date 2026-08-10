@@ -10,7 +10,6 @@
 #include "STM32F401CCUx.h"
 #include "stm32f401ccux_gpio_driver.h"
 #include "spi.h"
-#include <string.h>
 
 
 /////////////////////////  CMD CODES  ///////////////////

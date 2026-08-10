@@ -8,12 +8,12 @@ A bare-metal driver library for the STM32F401CCU6 developed from scratch without
 - EXTI Driver
 - NVIC Configuration
 - SysTick Driver
+- SPI Driver
 
 ## Planned Drivers
 
 - TIM
 - UART
-- SPI
 - I2C
 - ADC
 - DMA
