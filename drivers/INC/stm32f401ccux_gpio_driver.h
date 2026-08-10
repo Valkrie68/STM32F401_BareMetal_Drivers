@@ -2,7 +2,7 @@
  * stm32f401ccux_gpio_driver.h
  *
  *  Created on: 07-Jul-2026
- *      Author: veeresh
+ *      Author: viresh
  */
 
 #ifndef INC_STM32F401CCUX_GPIO_DRIVER_H_

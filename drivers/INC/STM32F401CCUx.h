@@ -2,7 +2,7 @@
  * STM32F401CCUx.h
  *
  *  Created on: 01-Jul-2026
- *      Author: veere
+ *      Author: viresh
  */
 #include<stdint.h>
 #ifndef INC_STM32F401CCUX_H_
@@ -165,7 +165,7 @@ typedef struct
 #define SPI1_PCLK_EN         (RCC->APB2ENR  |= (1<<12))
 #define SPI2_PCLK_EN         (RCC->APB1ENR  |= (1<<14))
 #define SPI3_PCLK_EN         (RCC->APB1ENR  |= (1<<15))
-#define SPI4_PCLK_EN         (RCC->APB2ENR  |= (1<<13))
+//#define SPI4_PCLK_EN         (RCC->APB2ENR  |= (1<<13))
 
 /* enable clk for usart */
 #define USART1_PCLK_EN       (RCC->APB2ENR  |= (1<<4))
@@ -192,10 +192,10 @@ typedef struct
 #define I2C3_PCLK_DI         (RCC->APB1ENR  &= ~(1<<23))
 
 /* enable clk for SPI */
-#define SPI1_PCLK_DI         (RCC->APB2ENR  &= ~(1<<12))
-#define SPI2_PCLK_DI         (RCC->APB1ENR  &= ~(1<<14))
-#define SPI3_PCLK_DI         (RCC->APB1ENR  &= ~(1<<15))
-#define SPI4_PCLK_DI         (RCC->APB2ENR  &= ~(1<<13))
+#define SPI1_PCLK_DI()         (RCC->APB2ENR  &= ~(1<<12))
+#define SPI2_PCLK_DI()         (RCC->APB1ENR  &= ~(1<<14))
+#define SPI3_PCLK_DI()         (RCC->APB1ENR  &= ~(1<<15))
+//#define SPI4_PCLK_DI()         (RCC->APB2ENR  &= ~(1<<13))
 
 /* enable clk for usart */
 #define USART1_PCLK_DI       (RCC->APB2ENR  &= ~(1<<4))
@@ -215,6 +215,8 @@ typedef struct
 #define DISABLE                  0
 #define SET                      ENABLE
 #define RESET                    DISABLE
+#define Flag_Reset               RESET
+#define Flag_Set                 SET
 #define GPIO_PIN_SET             SET
 #define GPIO_PIN_RESET           RESET
 #define GPIOA_REG_RESET         do {(RCC->AHB1STR  |= (1<<0));     (RCC->AHB1STR &= ~(1<<0));}while(0)
@@ -250,4 +252,65 @@ typedef struct
 #define SYSTICK_CLKSOURCE_INTERNAL   1U
 #define SYSTICK_CLKSOURCE_EXTERNAL   0U  // div / 8
 #define SYSTICK_CLOCK_HZ             16000000U //// Internal
+
+/*
+ * Complete SPI register definitions
+ * */
+typedef struct{
+	volatile uint32_t SPI_CR1;  // 00
+	volatile uint32_t SPI_CR2;  //04
+	volatile uint32_t SPI_SR;    //08
+	volatile uint32_t SPI_DR;    //0c
+	volatile uint32_t SPI_CRCPR;  // CRC Polynomial Reg 10
+	volatile uint32_t SPI_RXCRCR; // 14
+	volatile uint32_t SPI_TXCRCR; // 18
+	volatile uint32_t SPI_I2SCFGR; // 1C
+	volatile uint32_t SPI_I2SPR; // 0x20
+
+}SPI_REGDEF_T;
+
+#define SPI1      ((SPI_REGDEF_T*)(SPI1_BASE_ADD))  // APB2 BUS
+#define SPI2      ((SPI_REGDEF_T*)(SPI2_BASE_ADD))  // APB1 BUS
+#define SPI3      ((SPI_REGDEF_T*)(SPI3_BASE_ADD))  // APB1 BUS
+//#define SPI4      ((SPI_REGDEF_T*)(SPI4_BASE_ADD))  // APB2 BUS
+
+/*
+ * SOME MACROS FOR SPI
+ */
+// CR1 bits
+#define SPI_CR1_CPHA      0
+#define SPI_CR1_CPOL      1
+#define SPI_CR1_MSTR      2
+#define SPI_CR1_BR        3
+#define SPI_CR1_SPE       6
+#define SPI_CR1_LSB1      7
+#define SPI_CR1_SSI       8
+#define SPI_CR1_SSM       9
+#define SPI_CR1_RX_ONLY   10
+#define SPI_CR1_DFF       11
+#define SPI_CR1_CRC_NEXT  12
+#define SPI_CR1_CRC_EN    13
+#define SPI_CR1_BIDI_OE   14
+#define SPI_CR1_BIDI_MODE 15
+// CR2 bits
+#define SPI_CR2_RXDMAEN   0
+#define SPI_CR2_TXDMAEN   1
+#define SPI_CR2_SSOE      2
+#define SPI_CR2_RESERVED  3
+#define SPI_CR2_FRF       4
+#define SPI_CR2_ERRIE     5
+#define SPI_CR2_RXNEIE    6
+#define SPI_CR2_TXEIE     7
+
+// SR bits
+#define SPI_SR_RXNE        0
+#define SPI_SR_TXE         1
+#define SPI_SR_CHSIDE      2
+#define SPI_SR_UDR         3
+#define SPI_SR_CRCERR      4
+#define SPI_SR_MODF        5
+#define SPI_SR_OVR         6
+#define SPI_SR_BSY         7
+#define SPI_SR_FRE         8
+
 #endif /* INC_STM32F401CCUX_H_ */

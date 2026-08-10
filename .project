@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>DEVICE_DRIVER_1</name>
+	<name>STM32F401_BareMetal_Drivers</name>
 	<comment></comment>
 	<projects>
 	</projects>

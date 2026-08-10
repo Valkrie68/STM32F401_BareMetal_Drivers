@@ -82,6 +82,7 @@ void GPIO_PeriClockControl(gpio_reg_def *GPIOx , uint8_t  EN_DI)
 void GPIO_INIT(gpio_handle_t  *pGPIOx_HANDLE)
 {
 
+	GPIO_PeriClockControl(pGPIOx_HANDLE->pGPIOx, ENABLE);
 
   uint32_t temp = 0;
 	// 1. Configure Mode
